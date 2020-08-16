@@ -1,0 +1,244 @@
+﻿@model IEnumerable<TestApplication.Models.mdlRecord>
+@{
+    ViewBag.Title = "UploadedDataList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    * {
+        box-sizing: border-box
+    }
+
+    /* Set height of body and the document to 100% */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial;
+    }
+
+    /* Style tab links */
+    .tablink {
+        background-color: #555;
+        color: white;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        font-size: 17px;
+        width: 25%;
+    }
+
+        .tablink:hover {
+            background-color: #777;
+        }
+
+    /* Style the tab content (and add height:100% for full page content) */
+    .tabcontent {
+        color: black;
+        display: none;
+        padding: 100px 20px;
+        height: 100%;
+    }
+
+    /*#Home {
+        background-color: red;
+    }
+
+    #News {
+        background-color: green;
+    }
+
+    #Contact {
+        background-color: blue;
+    }
+
+    #About {
+        background-color: orange;
+    }*/
+
+</style>
+<h2>Uploaded Data List</h2>
+
+
+<button class="tablink" onclick="openPage('Home', this, 'red')">Error</button>
+<button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Valid</button>
+<button class="tablink" onclick="openPage('Contact', this, 'blue')">Duplicate</button>
+
+
+<div id="Home" class="tabcontent">
+    <div class="row">
+        <div class="col-md-12">
+            <table id="example1" class="table dataTable">
+                <thead>
+                    <tr>
+                        <th class="text-center searchyes">Company Name</th>
+                        <th class="text-center searchyes">GST IN</th>
+                        <th class="text-center searchno">Start Date</th>
+                        <th class="text-center searchno">End Date</th>
+                        <th class="text-center searchno">Trun Over Amount</th>
+                        <th class="text-center searchno">Contact Email</th>
+                        <th class="text-center searchno">Contact Number</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var temp in Model.Where(m => m.RowValid == "error"))
+                        {
+                    <tr>
+                        <td>
+                            <input type="text" value="@temp.CompanyName" class="form-control CompanyName change" />
+                            <input type="hidden" value="@temp.PrimaryKey" class="form-control PrimaryKey change" />
+                        </td>
+                        <td><input type="text" value="@temp.GSTIN" class="form-control GSTIN change" /></td>
+                        <td><input type="text" value="@temp.StartDate" class="form-control StartDate change" /></td>
+                        <td><input type="text" value="@temp.EndDate" class="form-control EndDate change" /></td>
+                        <td><input type="text" value="@temp.TrunOverAmount" class="form-control TrunOverAmount change" /></td>
+                        <td><input type="text" value="@temp.ContactEmail" class="form-control ContactEmail change" /></td>
+                        <td><input type="text" value="@temp.ContactNumber" class="form-control ContactNumber change" /></td>
+                    </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="News" class="tabcontent">
+    <div class="row">
+        <div class="col-md-12">
+            <table id="example1" class="table dataTable">
+                <thead>
+                    <tr>
+                        <th class="text-center searchyes">Company Name</th>
+                        <th class="text-center searchyes">GST IN</th>
+                        <th class="text-center searchno">Start Date</th>
+                        <th class="text-center searchno">End Date</th>
+                        <th class="text-center searchno">Trun Over Amount</th>
+                        <th class="text-center searchno">Contact Email</th>
+                        <th class="text-center searchno">Contact Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var temp in Model.Where(m => m.RowValid == "valid"))
+                        {
+                    <tr>
+                        <td>
+                            <input type="text" value="@temp.CompanyName" class="form-control CompanyName change" />
+                            <input type="hidden" value="@temp.PrimaryKey" class="form-control PrimaryKey change" />
+                        </td>
+                        <td><input type="text" value="@temp.GSTIN" class="form-control GSTIN change" /></td>
+                        <td><input type="text" value="@temp.StartDate" class="form-control StartDate change" /></td>
+                        <td><input type="text" value="@temp.EndDate" class="form-control EndDate change" /></td>
+                        <td><input type="text" value="@temp.TrunOverAmount" class="form-control TrunOverAmount change" /></td>
+                        <td><input type="text" value="@temp.ContactEmail" class="form-control ContactEmail change" /></td>
+                        <td><input type="text" value="@temp.ContactNumber" class="form-control ContactNumber change" /></td>
+                    </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="Contact" class="tabcontent">
+    <div class="row">
+        <div class="col-md-12">
+            <table id="example1" class="table dataTable">
+                <thead>
+                    <tr>
+                        <th class="text-center searchyes">Company Name</th>
+                        <th class="text-center searchyes">GST IN</th>
+                        <th class="text-center searchno">Start Date</th>
+                        <th class="text-center searchno">End Date</th>
+                        <th class="text-center searchno">Trun Over Amount</th>
+                        <th class="text-center searchno">Contact Email</th>
+                        <th class="text-center searchno">Contact Number</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var temp in Model.Where(m => m.RowValid == "Duplicate"))
+                        {
+                    <tr>
+                        <td>
+                            <input type="text" value="@temp.CompanyName" class="form-control CompanyName change" />
+                            <input type="hidden" value="@temp.PrimaryKey" class="form-control PrimaryKey change" />
+                        </td>
+                        <td><input type="text" value="@temp.GSTIN" class="form-control GSTIN change" /></td>
+                        <td><input type="text" value="@temp.StartDate" class="form-control StartDate change" /></td>
+                        <td><input type="text" value="@temp.EndDate" class="form-control EndDate change" /></td>
+                        <td><input type="text" value="@temp.TrunOverAmount" class="form-control TrunOverAmount change" /></td>
+                        <td><input type="text" value="@temp.ContactEmail" class="form-control ContactEmail change" /></td>
+                        <td><input type="text" value="@temp.ContactNumber" class="form-control ContactNumber change" /></td>
+                    </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function openPage(pageName, elmnt, color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    $(document).ready(function () {
+        $('.dataTable').DataTable();
+        $('.dataTable>tbody').on('focusout', '.change', function () {
+            var formData = {
+                    "PrimaryKey": $(this).closest('tr').find('.PrimaryKey').val(),
+                    "CompanyName": $(this).closest('tr').find('.CompanyName').val(),
+                    "GSTIN": $(this).closest('tr').find('.GSTIN').val(),
+                    "StartDate": $(this).closest('tr').find('.StartDate').val(),
+                    "EndDate": $(this).closest('tr').find('.EndDate').val(),
+                    "TrunOverAmount": $(this).closest('tr').find('.TrunOverAmount').val(),
+                    "ContactEmail": $(this).closest('tr').find('.ContactEmail').val(),
+                    "ContactNumber": $(this).closest('tr').find('.ContactNumber').val(),
+                    "RowValid": $(this).closest('tr').find('.RowValid').val()
+                    };
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SaveLine", "Home")",
+                    data: formData,
+                    success: function (data) {
+                        alert("Record Updated successfully.");
+                        window.location.reload();
+                    },
+                    error: function () {
+
+                    }
+                });
+               
+           
+        })
+    });
+</script>
