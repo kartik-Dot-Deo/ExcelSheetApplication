@@ -42,8 +42,9 @@ namespace TestApplication.Controllers
 
                             string sheetName = "Sheet1";
                             DataTable dt = READExcel(pathToExcelFile);
-                            var foo = new EmailAddressAttribute();
                             dt.Columns.Add("RowValid", typeof(System.String));
+                            
+                            
                             //  var duplicates = dt.AsEnumerable().GroupBy(i => new { GSTIN = i.Field<string>("GSTIN"), Number = i.Field<string>("Contact Number"), Email = i.Field<string>("Contact Email") }).Where(g => g.Count() > 1).Select(g => new { g.Key.GSTIN, g.Key.Number,g.Key.Email }).ToList();
                             // dt.AsEnumerable().GroupBy(x => x["GSTIN"],z => z["Contact Email"],r => r["Contact Email"]).Where(x => x.Count() > 1);
                             foreach (DataRow dr in dt.Rows)
@@ -51,7 +52,7 @@ namespace TestApplication.Controllers
                                 var gst = ValidateGST(dr["GSTIN"].ToString());
                                 var mobileno = ValidateMobileNo(dr["Contact Number"].ToString());
                                 var date = ValidateDate(dr["Start Date"].ToString(), dr["End Date"].ToString());
-                                var Email = foo.IsValid(dr["Contact Email"].ToString());
+                                var Email = ValidateEmail(dr["Contact Email"].ToString());
                                 var totalamount = ValidedAmount(dr["Trunover Amount"].ToString());
 
                                 if (gst && mobileno && date && Email && totalamount)
@@ -110,7 +111,7 @@ namespace TestApplication.Controllers
         }
         public bool ValidateMobileNo(string no)
         {
-            var regex = @"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$";
+            var regex = @"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2})$";
             var match = Regex.Match(no, regex, RegexOptions.IgnoreCase);
 
 
@@ -130,6 +131,12 @@ namespace TestApplication.Controllers
             }
 
             
+        }
+
+        public bool ValidateEmail(string email)
+        {
+            var foo = new EmailAddressAttribute();
+            return foo.IsValid(email);
         }
         public DataTable READExcel(string path)
         {
